@@ -24,4 +24,10 @@ class TransactionView(generics.ListCreateAPIView):
      queryset = Transaction.objects.all()
      serializer_class = TransactionSerializer
      
+class MicView(generics.ListCreateAPIView):
+     queryset = Transaction.objects.all()
+     serializer_class = MicSerializer
+     
+     
+     
      

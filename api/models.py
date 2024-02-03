@@ -18,6 +18,7 @@ class Transaction(models.Model):
     Sender_choices= (
         ('Paytm', 'Paytm'),
         ('PhonePay', 'PhonePay'),
+        ('Mic','Mic'),
 
     )
     username = models.CharField(max_length=255)
