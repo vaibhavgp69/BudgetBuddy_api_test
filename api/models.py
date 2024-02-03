@@ -7,12 +7,12 @@ import ast
 
 class User(models.Model):
     username = models.CharField(max_length=255,unique=True)
-    phonenumber = models.IntegerField(unique=True)
+    phonenumber = models.CharField(max_length=13, unique=True)
     password = models.CharField(max_length=50)
     ifLogged = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{} -{}".format(self.username, str(self.phonenumber))
+        return "{} -{}".format(self.username, self.phonenumber)
             
 class Transaction(models.Model):
     Sender_choices= (
