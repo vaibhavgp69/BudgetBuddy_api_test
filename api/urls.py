@@ -12,5 +12,5 @@ urlpatterns = [
     path('newuser', views.UserView.as_view(), name = 'newuser'),
     path('newtrans', views.TransactionView.as_view(), name = 'newtrans'),
     path('newmic', views.MicView.as_view(), name = 'newmic'),     
-    
+        path('newimg', views.ImgView.as_view(), name = 'newimg'),
 ]

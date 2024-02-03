@@ -19,6 +19,7 @@ class Transaction(models.Model):
         ('Paytm', 'Paytm'),
         ('PhonePay', 'PhonePay'),
         ('Mic','Mic'),
+        ("By Cash","By Cash"),
 
     )
     username = models.CharField(max_length=255)
@@ -37,3 +38,14 @@ class Transaction(models.Model):
 
     def __str__(self):
         return self.user.username + '___:___ ' + self.sender  + '___:___ ' + str(self.amount) + '___:___ ' + self.receiver  + '___:___ ' + self.t_type 
+
+class Image(models.Model):
+    username = models.CharField(max_length=255)
+    user = models.ForeignKey(User,
+        on_delete=models.CASCADE,)
+    timestamp =  models.CharField(max_length=255, primary_key=True,unique=True)
+    img_file = models.FileField(blank=False, null=False)
+    text = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return self.user.username + '___:___ ' + self.text
