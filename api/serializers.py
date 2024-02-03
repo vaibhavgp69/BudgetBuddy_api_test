@@ -62,8 +62,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         result = ast.literal_eval(all_messages)
         a_m=[]
         for x in result.values():
-            res = x.strip('][').split(', ')
-            a_m.append(res)
+            a_m.append(x)
         for i in a_m:
             data['timestamp'] = i[0]
             
