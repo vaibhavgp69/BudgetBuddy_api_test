@@ -65,18 +65,14 @@ class TransactionSerializer(serializers.ModelSerializer):
             res = x.strip('][').split(', ')
             a_m.append(res)
         for i in a_m:
-            g=f"{i}"
-            print(type(g))
-            print(g)
-            single_message = g.strip('][').split(',')
-            data['timestamp'] = single_message[0]
+            data['timestamp'] = i[0]
             
             
             if Transaction.objects.filter(pk= data['timestamp']).exists():
                 print("Data Already Exists , skipping OPENAI api call")
                 continue
             else:
-                data['t_type'],data['sender'],data['receiver'],data['receiver_category'], data['amount']  = self.get_receiver(g)
+                data['t_type'],data['sender'],data['receiver'],data['receiver_category'], data['amount']  = self.get_receiver(i)
                 data['advice'] = 'future implementation incoming'
                 newtrans= Transaction.objects.create(
                     username = data.get("username"),
@@ -105,8 +101,6 @@ class TransactionSerializer(serializers.ModelSerializer):
     
     @with_goto
     def get_receiver(self, single_message):
-        single_message = single_message.strip('][').split(',')
-        timestamp = single_message[0]
         sender=single_message[1]
         notif=single_message[2]
         amount = self.use_regex_amount(notif)
