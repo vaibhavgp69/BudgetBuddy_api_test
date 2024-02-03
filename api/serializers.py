@@ -73,6 +73,7 @@ class TransactionSerializer(serializers.ModelSerializer):
                 continue
             else:
                 data['t_type'],data['sender'],data['receiver'],data['receiver_category'], data['amount']  = self.get_receiver(i)
+                print("------------------------ T I M E R   ---- S T A R T E D ------------------- ")
                 time.sleep(20)
                 data['advice'] = 'future implementation incoming'
                 newtrans= Transaction.objects.create(
