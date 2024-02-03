@@ -3,6 +3,7 @@ from .models import *
 import uuid
 import os
 import re
+import time
 import openai
 import requests
 import string
@@ -72,6 +73,7 @@ class TransactionSerializer(serializers.ModelSerializer):
                 continue
             else:
                 data['t_type'],data['sender'],data['receiver'],data['receiver_category'], data['amount']  = self.get_receiver(i)
+                time.sleep(20)
                 data['advice'] = 'future implementation incoming'
                 newtrans= Transaction.objects.create(
                     username = data.get("username"),
