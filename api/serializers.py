@@ -14,12 +14,12 @@ import ast
 from goto import with_goto
 from goto import goto, label
 aeval = Interpreter()
-# openai.organization = os.environ.get("ORG_KEY")
-# openai.api_key =os.environ.get("OPENAI_KEY")
-
-
-openai.organization = "org-cRn4NpYi0Ew4VA8lvOsfRIBN"
+openai.organization = os.environ.get("ORG_KEY")
 openai.api_key =os.environ.get("OPENAI_KEY")
+
+
+# openai.organization = "org-cRn4NpYi0Ew4VA8lvOsfRIBN"
+# openai.api_key =os.environ.get("OPENAI_KEY")
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -48,7 +48,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     sender = serializers.CharField(required=False, read_only=True)
     t_type = serializers.CharField(required=False, read_only=True)
     receiver = serializers.CharField(required=False, read_only=True)
-    amount = serializers.DecimalField(required=False, read_only=True, max_digits = 10, decimal_places=3)
+    amount = serializers.DecimalField(required=False, read_only=True, max_digits = 100, decimal_places=3)
     receiver_category = serializers.CharField(required=False, read_only=True)
     advice = serializers.CharField(required=False, read_only=True)
     status = serializers.CharField(required=False, read_only=True)

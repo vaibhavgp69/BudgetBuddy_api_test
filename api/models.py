@@ -7,8 +7,8 @@ import ast
 
 class User(models.Model):
     username = models.CharField(max_length=255,unique=True)
-    phonenumber = models.CharField(max_length=13, unique=True)
-    password = models.CharField(max_length=50)
+    phonenumber = models.CharField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
     ifLogged = models.BooleanField(default=False)
 
     def __str__(self):
@@ -21,16 +21,16 @@ class Transaction(models.Model):
 
     )
     username = models.CharField(max_length=255)
-    all_messages = models.CharField(max_length=1000)
+    all_messages = models.CharField(max_length=25000)
     user = models.ForeignKey(User,
         on_delete=models.CASCADE,)
     timestamp =  models.CharField(max_length=255, primary_key=True,unique=True)
-    sender = models.CharField(max_length=10, choices = Sender_choices)
+    sender = models.CharField(max_length=250, choices = Sender_choices)
     amount = models.IntegerField()
     receiver = models.CharField(max_length=255)
     receiver_category = models.CharField(max_length=255)
     advice = models.CharField(max_length=1000)
-    t_type = models.CharField(max_length=100)
+    t_type = models.CharField(max_length=1000)
     
     
 
