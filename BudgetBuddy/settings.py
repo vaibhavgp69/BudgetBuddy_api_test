@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-4%18u-n9a1%@j5l_1-j2buxvyt5+)$eome57m(%9%4fn5*ek8=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['budgetbuddy-qyun.onrender.com','127.0.0.1']
 
 
 # Application definition
@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-database_url = 'postgres://budgetbuddy_database_k4o5_user:u3StNrGvkn7fqpHQGS1TCX9Rqufx8vuv@dpg-cmvcr1icn0vc73ao9ujg-a.singapore-postgres.render.com/budgetbuddy_database_k4o5'
+database_url = os.environ.get("DATABASE_URL")
 DATABASES['default'] = dj_database_url.parse(database_url)
 
 
