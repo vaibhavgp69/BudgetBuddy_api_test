@@ -117,7 +117,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         "receiver": "<receiver>",
         "receiver_category": "<receiver_category>"
 
-        Ensure that the output adheres to the specified structure, with the timestamp representing the transaction_type of the financial message to a limited set of "Debit" ,"Credit". the receiver indicating the recipient, and the receiver_category denoting a limited set of categories such as 'Entertainment,' 'Food,' 'Medical' or 'Individual Person.' """
+        Ensure that the output adheres to the specified structure, with the timestamp representing the transaction_type of the financial message to a limited set of "Debit" ,"Credit". the receiver indicating the recipient, and the receiver_category denoting a limited set of categories such as 'Entertainment,' 'Food,' 'Medical' 'Individual Person,' or 'Government Utilities' """
         prompt = t
 
         content=f"""Please give proper JSON format answer"""
