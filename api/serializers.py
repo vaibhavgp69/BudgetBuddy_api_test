@@ -14,7 +14,8 @@ import ast
 from goto import with_goto
 from goto import goto, label
 aeval = Interpreter()
-
+# openai.organization = os.environ.get("ORG_KEY")
+# openai.api_key =os.environ.get("OPENAI_KEY")
 
 
 openai.organization = "org-cRn4NpYi0Ew4VA8lvOsfRIBN"
