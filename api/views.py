@@ -31,6 +31,12 @@ class MicView(generics.ListCreateAPIView):
 class ImgView(generics.ListCreateAPIView):
      queryset = Image.objects.all()
      serializer_class = ImgSerializer    
+
+
+class PlotView(generics.ListCreateAPIView):
+     queryset = Transaction.objects.all()
+     serializer_class = PlotSerializer
+     
      
      
      

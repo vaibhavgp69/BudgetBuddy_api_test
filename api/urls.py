@@ -13,4 +13,5 @@ urlpatterns = [
     path('newtrans', views.TransactionView.as_view(), name = 'newtrans'),
     path('newmic', views.MicView.as_view(), name = 'newmic'),     
         path('newimg', views.ImgView.as_view(), name = 'newimg'),
+            path('newplot', views.PlotView.as_view(), name = 'newplot'),
 ]

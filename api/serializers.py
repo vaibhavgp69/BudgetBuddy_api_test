@@ -319,3 +319,105 @@ class ImgSerializer(serializers.ModelSerializer):
             goto .begin
 
             
+   
+class PlotSerializer(serializers.ModelSerializer):
+    total_amount = serializers.CharField(required=False, read_only=True)
+    
+    debit_count = serializers.CharField(required=False, read_only=True)
+    credit_count = serializers.CharField(required=False, read_only=True)
+     
+    debit_amount = serializers.CharField(required=False, read_only=True)
+    credit_amount = serializers.CharField(required=False, read_only=True)
+    
+    paytm_count = serializers.CharField(required=False, read_only=True)
+    phonepe_count = serializers.CharField(required=False, read_only=True)
+    mic_count = serializers.CharField(required=False, read_only=True)
+    img_count = serializers.CharField(required=False, read_only=True)
+    
+    ent_count  = serializers.CharField(required=False, read_only=True)
+    med_count  = serializers.CharField(required=False, read_only=True)
+    gov_count  = serializers.CharField(required=False, read_only=True)
+    fud_count  = serializers.CharField(required=False, read_only=True)
+    inv_count = serializers.CharField(required=False, read_only=True)
+    
+    ent_amount  = serializers.CharField(required=False, read_only=True)
+    med_amount  = serializers.CharField(required=False, read_only=True)
+    gov_amount  = serializers.CharField(required=False, read_only=True)
+    fud_amount  = serializers.CharField(required=False, read_only=True)
+    inv_amount = serializers.CharField(required=False, read_only=True)
+    
+    status = serializers.CharField(required=False, read_only=True)
+    class Meta:
+        model = Transaction
+        fields = ['username','total_amount','debit_amount','credit_amount','debit_count','credit_count','paytm_count','phonepe_count','mic_count','img_count','ent_count','med_count','gov_count','fud_count','inv_count','ent_amount','med_amount','gov_amount','fud_amount','inv_amount','status']
+
+    def create(self, data):   
+        debit_amount=0.0    
+        credit_amount=0.0  
+        total_amount=0.0
+        ent_amount=0.0
+        med_amount=0.0
+        gov_amount=0.0
+        fud_amount=0.0
+        inv_amount=0.0
+        
+        c_user = User.objects.get(username=data.get('username'))
+        debit_list = Transaction.objects.filter(user=c_user,t_type='debit')
+        for i in debit_list:
+            debit_amount = debit_amount+i.amount
+        data['debit_count'] = debit_list.count()
+        data['debit_amount'] = debit_amount
+        credit_list = Transaction.objects.filter(user=c_user,t_type='credit')
+        for i in credit_list:
+            credit_amount = credit_amount+i.amount
+        data['credit_count'] = credit_list.count()
+        data['credit_amount'] = credit_amount
+        
+        data['paytm_count'] =Transaction.objects.filter(user=c_user,sender='Paytm').count()
+        data['phonepe_count'] =Transaction.objects.filter(user=c_user,sender='PhonePay').count()
+        data['mic_count'] =Transaction.objects.filter(user=c_user,sender='Mic').count()
+        data['img_count'] =Transaction.objects.filter(user=c_user,sender='By Cash').count()
+        
+        
+        data['ent_count']  = Transaction.objects.filter(user=c_user,receiver_category='Entertainment').count()
+        data['med_count']  =  Transaction.objects.filter(user=c_user,receiver_category='Medical').count()
+        data['gov_count']  = Transaction.objects.filter(user=c_user,receiver_category='Government Utilities').count()
+        data['fud_count']  =  Transaction.objects.filter(user=c_user,receiver_category='Food').count()
+        data['inv_count'] =  Transaction.objects.filter(user=c_user,receiver_category='Individual Person').count()
+        
+        ent_list = Transaction.objects.filter(user=c_user,receiver_category='Entertainment')
+        for i in ent_list:
+            ent_amount = ent_amount+i.amount
+        data['ent_amount'] = ent_amount
+        
+        med_list = Transaction.objects.filter(user=c_user,receiver_category='Medical')
+        for i in med_list:
+            med_amount = med_amount+i.amount
+        data['med_amount'] = med_amount
+        
+        fud_list = Transaction.objects.filter(user=c_user,receiver_category='Food')
+        for i in fud_list:
+            fud_amount = fud_amount+i.amount
+        data['fud_amount'] = fud_amount
+        
+        inv_list = Transaction.objects.filter(user=c_user,receiver_category='Individual Person')
+        for i in inv_list:
+            inv_amount = inv_amount+i.amount
+        data['inv_amount'] = inv_amount
+        
+        gov_list = Transaction.objects.filter(user=c_user,receiver_category='Government Utilities')
+        for i in gov_list:
+            gov_amount = gov_amount+i.amount
+        data['gov_amount'] = gov_amount
+        
+        for i in Transaction.objects.filter(user=c_user):
+            total_amount = total_amount + i.amount
+        data['total_amount']=total_amount
+    
+        
+        
+        data['status'] = "created succesfully"
+        return data
+    
+        
+    
