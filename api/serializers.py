@@ -287,7 +287,7 @@ class ImgSerializer(serializers.ModelSerializer):
         data['status'] = "created succesfully"
         return data
     
-        
+    @with_goto    
     def get_img_value(self,url):
         img = PIL.Image.open("."+url) 
         model = genai.GenerativeModel('gemini-pro-vision')
@@ -304,14 +304,18 @@ class ImgSerializer(serializers.ModelSerializer):
         (e.g., "Entertainment," "Food," "Medical," "Individual Person," or "Government Utilites"), transaction_type indicating whether the transaction was a debit or credit, and amount representing the transaction amount.
 
         """
-        response = model.generate_content([t, img], stream=True)
-        response.resolve()
-
-        j =response.text
-        j=j.replace("```json\n", "")
-        j=j.replace("\n", "")
-        j_neat=j.replace("```", "")
-        text = json.loads(j)
-        return float(text['amount']),"By Cash",text['receiver'],text['receiver_category'],text['transaction_type'],j_neat
+        label .begin
+        try : 
+            response = model.generate_content([t, img], stream=True)
+            response.resolve()
+            j =response.text
+            j=j.replace("```json\n", "")
+            j=j.replace("\n", "")
+            j_neat=j.replace("```", "")
+            text = json.loads(j)
+            return float(text['amount']),"By Cash",text['receiver'],text['receiver_category'],text['transaction_type'],j_neat
+        
+        except json.decoder.JSONDecodeError:
+            goto .begin
 
             
