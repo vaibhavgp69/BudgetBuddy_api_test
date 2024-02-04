@@ -253,6 +253,7 @@ class ImgSerializer(serializers.ModelSerializer):
         c_user = User.objects.get(username=data.get('username'))
         data['timestamp'] = data.get('timestamp')
         newimg = Image.objects.create(
+            timestamp = data['timestamp'],
             username=data.get("username"),
             user=c_user,
             img_file=data.get("img_file"),
@@ -264,6 +265,8 @@ class ImgSerializer(serializers.ModelSerializer):
             print("Data Already Exists , skipping OPENAI api call")
         else:
             data['amount'],data['sender'],data['receiver'],data['receiver_category'],data['t_type'],data['text']   = self.get_img_value(data['img_url'])
+            newimg.text=data['text']
+            newimg.save()
             data['advice'] = 'future implementation incoming'
             newtrans= Transaction.objects.create(
                 username = data.get("username"),
