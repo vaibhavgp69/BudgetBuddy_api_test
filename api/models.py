@@ -49,3 +49,8 @@ class Image(models.Model):
     
     def __str__(self):
         return self.user.username + '___:___ ' + self.text
+
+class Advice(models.Model):
+    username = models.CharField(max_length=255)
+    question = models.CharField(max_length=255)
+    advice = models.CharField(max_length=1000)

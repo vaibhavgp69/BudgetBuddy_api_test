@@ -420,4 +420,29 @@ class PlotSerializer(serializers.ModelSerializer):
         return data
     
         
+class AdviceSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(required=False, read_only=True)
+    advice = serializers.CharField(required=False, read_only=True)
+    status = serializers.CharField(required=False, read_only=True)
+    class Meta:
+        model = Advice
+        fields = ['username','question','advice','status']
+
+    def create(self, data):   
+        c_user = User.objects.get(username=data.get('username'))
+        model2 = genai.GenerativeModel('gemini-pro')
+        response = model2.generate_content(data.get('question'))
+        data['advice'] = response.text
+        data['username'] = data.get('username')
+        data['question'] = data.get('question')
+        
+        newadvice = Advice.objects.create(
+            username = data.get('username'),
+            question=data.get('question'),
+            advice=data['advice'],
+        )
+        newadvice.save()
+        
+        data['status'] = "created succesfully"
+        return data
     

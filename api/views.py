@@ -36,8 +36,11 @@ class ImgView(generics.ListCreateAPIView):
 class PlotView(generics.ListCreateAPIView):
      queryset = Transaction.objects.all()
      serializer_class = PlotSerializer
-     
-     
+
+
+class AdviceView(generics.ListCreateAPIView):
+     queryset = Advice.objects.all()
+     serializer_class = AdviceSerializer
      
      
      
